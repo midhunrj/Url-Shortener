@@ -5,7 +5,7 @@ dotenv.config();
 const authconfig={
     accessTokenSecret:process.env.ACCESS_TOKEN_SECRET as string  ,
     refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET as string, 
-    accessTokenExpiry: '7m' as string,
+    accessTokenExpiry: '10m' as string,
     refreshTokenExpiry: '7d' as string,
     
     
