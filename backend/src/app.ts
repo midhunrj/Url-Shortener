@@ -14,9 +14,11 @@ app.use(express.json())
 app.use(cookieParser())
 
 const corsOptions:CorsOptions={
-    origin:[process.env.CLIENT_URL!],
+    origin:[process.env.CLIENT_URL!,"http://localhost:5173"],
     credentials:true,
+    allowedHeaders: ["Content-Type", "Authorization"],
 }
+app.options("*",cors(corsOptions))
 app.use(cors(corsOptions)) 
 
 mongoose.connect(process.env.MONGODB_URL!)
