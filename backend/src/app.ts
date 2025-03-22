@@ -39,15 +39,8 @@ mongoose.connect(process.env.MONGODB_URL!)
 
 console.log("AccessTokenSecret:", process.env.ACCESS_TOKEN_SECRET);
 console.log("RefreshTokenSecret:", process.env.REFRESH_TOKEN_SECRET);
-console.log("client url",process.env.CLIENT_URL);
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL!);
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.header("Access-Control-Allow-Credentials", "true");
-    next();
-  });
+
 app.use('/',userRouter)
 app.listen(7986,()=>{
     console.log(`server is connected and running on port 7986`);
