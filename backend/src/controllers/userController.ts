@@ -33,7 +33,7 @@ export class UserController{
        const{refreshToken}=userData as{refreshToken:string}
                 res.cookie('urlRefreshToken', refreshToken, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV==="production",  // Only send secure cookies in production
+                    secure: process.env.NODE_ENV === "production",  // Only send secure cookies in production
                     sameSite: 'none',
                     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 });

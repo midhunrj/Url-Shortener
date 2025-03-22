@@ -36,6 +36,16 @@ mongoose.connect(process.env.MONGODB_URL!)
     console.log(err,"error mongo");
     
 })
+mongoose.connection.on("error", (err) => {
+    console.log("mongo err");
+    
+    console.error("MongoDB Connection Error:", err);
+});
+
+mongoose.connection.once("open", () => {
+    console.log("MongoDB Connected Successfully");
+});
+
 
 console.log("AccessTokenSecret:", process.env.ACCESS_TOKEN_SECRET);
 console.log("RefreshTokenSecret:", process.env.REFRESH_TOKEN_SECRET);
