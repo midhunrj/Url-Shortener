@@ -108,6 +108,8 @@ const History = () => {
 
     const fetchUrls = async () => {
       try {
+        console.log(user,"userDetails");
+        
         const response = await userAuthenticate.get(
           `/listUrls/${user?._id}?page=${page}&limit=5`
         );

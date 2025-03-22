@@ -33,9 +33,11 @@ export class UrlController{
     async getALLUrlByUser(req:Request,res:Response)
     {
         try {
-            const{userId}=req.params
+            const userId=req.user?.id
             const{page,limit}=req.query
-           const totalUrlData=await urlService.getUrlByUser(userId,parseInt(page as string),parseInt(limit as string))
+            console.log("hhbbjfjs",req.params);
+            
+           const totalUrlData=await urlService.getUrlByUser(userId!,parseInt(page as string),parseInt(limit as string))
            console.log(totalUrlData,"toatla sfs");
            const {urlData,totalPages}=totalUrlData
            res.status(200).json({urlData,totalPages,currentPage:Number(page)})

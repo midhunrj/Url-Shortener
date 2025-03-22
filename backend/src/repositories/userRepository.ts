@@ -7,7 +7,7 @@ export default class UserRepository {
   }
   
   async findById(userId: string):Promise<IUser|null> {
-    return await User.findById(userId)
+    return await User.findById({_id:userId})
   }
   async createUser(user:IUser):Promise<IUser|null> {
     return await User.create(user);

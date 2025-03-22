@@ -15,6 +15,8 @@ export default class UrlService {
     return await urlRepository.findUrlByShort(shortUrl);
   }
   async getUrlByUser(userId: string,page:number,limit:number) {
+    console.log(userId,"userId,",page,"lim",limit);
+    
     return await urlRepository.findUrlsByUser(userId,page,limit);
   }
 }
