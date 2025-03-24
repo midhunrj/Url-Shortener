@@ -75,10 +75,17 @@ const Home = () => {
     navigator.clipboard.writeText(url);
     toast.success("Short URL copied to clipboard!");
   };
-
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url); 
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
   const GenerateLink = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!longUrl.trim()) {
+    if (!longUrl.trim() || !isValidUrl(longUrl)) {
       toast.error("Please enter a valid URL");
       return;
     }

@@ -15,7 +15,11 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [errors,setErrors]=useState<{[key:string]:string}>({})
+  // const [otp, setOtp] = useState("");
+  // const [otpSent, setOtpSent] = useState(false);
+  // const [timer, setTimer] = useState(60);
+  // const [canResend, setCanResend] = useState(false);
   const navigate = useNavigate();
   const { userAuthenticated } = useAuthContext();
   console.log(baseURL, "baseUrl");
@@ -24,9 +28,38 @@ const Register: React.FC = () => {
       navigate("/home", { replace: true });
     }
   }, []);
+  // useEffect(() => {
+  //   let interval: NodeJS.Timeout;
+  //   if (otpSent && timer > 0) {
+  //     interval = setInterval(() => {
+  //       setTimer((prev) => prev - 1);
+  //     }, 1000);
+  //   } else if (timer === 0) {
+  //     setCanResend(true);
+  //     clearInterval(interval);
+  //   }
+  //   return () => clearInterval(interval);
+  // }, [otpSent, timer]);
 
+  const validateForm = () => {
+    let tempErrors: { [key: string]: string } = {};
+
+    if (!username.trim()) tempErrors.username = "Username is required";
+    if (!email.trim()) tempErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(email)) tempErrors.email = "Invalid email format";
+
+    if (!password.trim()) tempErrors.password = "Password is required";
+    else if (password.length < 6) tempErrors.password = "Password must be at least 6 characters";
+
+    //if (otpSent && !otp.trim()) tempErrors.otp = "OTP is required";
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setLoading(true)
     try {
         console.log("nksnkn",baseURL)
@@ -87,6 +120,8 @@ const Register: React.FC = () => {
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-8 py-4 bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-4 rounded-lg"
             />
+             {errors.username && <span className="text-red-500">{errors.username}</span>}
+
             <input
               type="text"
               value={email}
@@ -94,6 +129,8 @@ const Register: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-8 py-4 bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-4 rounded-lg"
             />
+             {errors.email && <span className="text-red-500">{errors.email}</span>}
+
             <input
               type="password"
               value={password}
@@ -101,6 +138,8 @@ const Register: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-8 py-4 bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-4  rounded-lg"
             />
+             {errors.password && <span className="text-red-500">{errors.password}</span>}
+
             <button
               type="submit"
               className="w-fit bg-blue-600 cursor-pointer text-gray-200 hover:bg-blue-900  hover:text-white rounded-md h-fit  px-4 py-2 items-center"

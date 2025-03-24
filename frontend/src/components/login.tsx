@@ -1,4 +1,4 @@
-// import { ok } from 'assert'
+
 
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+   const [errors,setErrors]=useState<{[key:string]:string}>({})
   const { setUserAuthenticated } = useAuthContext();
   const navigate = useNavigate();
   const { userAuthenticated } = useAuthContext();
@@ -23,9 +24,27 @@ const Login: React.FC = () => {
       navigate("/home", { replace: true });
     }
   }, []);
+  const validateForm = () => {
+    let tempErrors: { [key: string]: string } = {};
 
+
+    if (!email.trim()) tempErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(email)) tempErrors.email = "Invalid email format";
+
+    if (!password.trim()) tempErrors.password = "Password is required";
+    else if (password.length < 6) tempErrors.password = "Password must be at least 6 characters";
+
+    //if (otpSent && !otp.trim()) tempErrors.otp = "OTP is required";
+
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if(!validateForm())
+    {
+      return
+    }
     setLoading(true)
     try {
       const response = await axios.post(
@@ -36,11 +55,11 @@ const Login: React.FC = () => {
       console.log(response, "response data");
   
       if (response.status === 200) {
-        const { accessToken, refreshToken,user } = response.data;
+        const { accessToken, user } = response.data;
         localStorage.setItem("urlAccessToken", accessToken);
-        localStorage.setItem("urlRefreshToken", refreshToken);
+        //localStorage.setItem("urlRefreshToken", refreshToken);
         localStorage.setItem("urlUserData", JSON.stringify(user));
-        setUserAuthenticated(true);
+        setUserAuthenticated(true)
         navigate("/home");
       }
     } catch (error: any) {
@@ -85,6 +104,8 @@ const Login: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-8 py-4 bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-4 rounded-lg"
             />
+             {errors.email && <span className="text-red-500">{errors.email}</span>}
+
             <input
               type="password"
               value={password}
@@ -92,6 +113,8 @@ const Login: React.FC = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-8 py-4 bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-4  rounded-lg"
             />
+             {errors.password && <span className="text-red-500">{errors.password}</span>}
+
             <button
               type="submit"
               className="w-fit bg-blue-600 cursor-pointer text-gray-200 hover:bg-blue-900  hover:text-white rounded-md h-fit  px-4 py-2 items-center"

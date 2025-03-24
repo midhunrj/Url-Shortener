@@ -207,7 +207,7 @@ const History = () => {
 
             <button
               onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-              disabled={page === totalPages}
+              disabled={page >= totalPages || urls.length==0}
               className={`px-4 py-2 rounded-md text-white ${
                 page === totalPages ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600"
               }`}
