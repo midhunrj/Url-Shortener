@@ -37,6 +37,9 @@ const Login: React.FC = () => {
     //if (otpSent && !otp.trim()) tempErrors.otp = "OTP is required";
 
     setErrors(tempErrors);
+    if (Object.keys(tempErrors).length > 0) {
+      setTimeout(() => setErrors({}), 3000); 
+    }
     return Object.keys(tempErrors).length === 0;
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
