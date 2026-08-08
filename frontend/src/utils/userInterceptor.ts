@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { baseURL } from "./config";
 
 
-
 export const userAuthenticate = axios.create({
     baseURL: baseURL, 
     headers: {
@@ -14,19 +13,20 @@ export const userAuthenticate = axios.create({
     withCredentials: true
 });
 
-
+  
 userAuthenticate.interceptors.request.use(
     (request) => {
         const userAccessToken = localStorage.getItem('urlAccessToken');
         if (userAccessToken) {
             request.headers.Authorization = `Bearer ${userAccessToken}`;
         }
-        return request;
+        return request
     },  
     (error) => {
         return Promise.reject(error);
     }
-);
+)
+
 // const handleUnauthorizedAccess = async(message:string) => {
 //     localStorage.removeItem("accessToken");
     

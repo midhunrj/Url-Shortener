@@ -19,10 +19,10 @@ app.use(cookieParser())
 //     allowedHeaders: ["Content-Type", "Authorization"],
 // }
 const corsOptions = {
-    origin: [process.env.CLIENT_URL!, "http://localhost:5173", "https://url-shortener-rho-amber.vercel.app"], // Add frontend URLs
+    origin: [process.env.CLIENT_URL!, "http://localhost:5173", "https://url-shortener-rho-amber.vercel.app"],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Ensure all required methods are allowed
-    allowedHeaders: ["Content-Type", "Authorization"], // Allow required headers
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+    allowedHeaders: ["Content-Type", "Authorization"], 
 };
 app.use(cors(corsOptions)) 
 app.options("*",cors(corsOptions))

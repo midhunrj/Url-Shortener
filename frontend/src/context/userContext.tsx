@@ -29,9 +29,10 @@ export const useAuthContext = () => {
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => {
+    
         try {
-          const userData = localStorage.getItem("urlUserData");
-          return userData ? JSON.parse(userData) : null;
+          const userData = localStorage.getItem("urlUserData")
+          return userData ? JSON.parse(userData) : null
         } catch (error) {
           console.error("Error parsing userData from localStorage", error);
           return null;

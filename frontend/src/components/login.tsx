@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import "./css/spinner.css"
@@ -15,7 +13,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-   const [errors,setErrors]=useState<{[key:string]:string}>({})
+   const [errors, setErrors]=useState<{[key:string]:string}>({})
   const { setUserAuthenticated } = useAuthContext();
   const navigate = useNavigate();
   const { userAuthenticated } = useAuthContext();
@@ -25,6 +23,7 @@ const Login: React.FC = () => {
     }
   }, []);
   const validateForm = () => {
+    
     let tempErrors: { [key: string]: string } = {};
 
 
@@ -120,7 +119,7 @@ const Login: React.FC = () => {
 
             <button
               type="submit"
-              className="w-fit bg-blue-600 cursor-pointer text-gray-200 hover:bg-blue-900  hover:text-white rounded-md h-fit  px-4 py-2 items-center"
+              className="w-fit bg-blue-600 cursor-pointer text-gray-200 hover:bg-blue-900  hover:text-white rounded-md h-fit px-4 py-2 items-center"
             >
               Login
             </button>

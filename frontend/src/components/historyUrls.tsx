@@ -22,12 +22,12 @@ const History = () => {
   const { user, userAuthenticated } = useAuthContext();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [expandedUrl, setExpandedUrl] = useState<string | null>(null); // To track expanded URL
+  const [expandedUrl, setExpandedUrl] = useState<string | null>(null); 
 
   useEffect(() => {
     if (!userAuthenticated) return;
 
-    const fetchUrls = async () => {
+    const fetchUrls = async() => {
       try {
         console.log(user,"userDetails");
         
@@ -65,8 +65,7 @@ const History = () => {
             urls.map((url) => (
               <div
                 key={url._id}
-                className="bg-white shadow-md p-4 rounded-lg mb-4"
-              >
+                className="bg-white shadow-md p-4 rounded-lg mb-4">
             
                 <p className="text-gray-500 text-sm">
                   Created: {new Date(url.createdAt).toLocaleString()}

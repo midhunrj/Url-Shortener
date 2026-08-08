@@ -1,56 +1,5 @@
 
-// import React, { useState } from 'react'
-// import { baseURL } from '../utils/config'
-// import { userAuthenticate } from '../utils/userInterceptor'
-// import { toast } from 'sonner'
-// import { useAuthContext } from '../context/userContext'
-// import { useNavigate } from 'react-router-dom'
 
-// const Home = () => {
-//     const[longUrl,setLongUrl]=useState('')
-//     const[copied,setCopied]=useState("")
-//     const {setUserAuthenticated,userAuthenticated}=useAuthContext()
-//     const navigate=useNavigate()
-//     const handleLogout = () => {
-//         localStorage.removeItem('userData')
-//         setUserAuthenticated(false)
-//         navigate('/');
-//       };
-//     const GenerateLink= async(e: React.FormEvent<HTMLFormElement>)=>{
-//       e.preventDefault()
-//       try{
-//       const shortUrl=await userAuthenticate.post('/create-link',{longUrl})
-//       console.log(shortUrl.data);
-//       }
-//       catch(err)
-//       {
-//         console.log(err,"error in creating url");
-//         toast.error('An error occured in creating a short Url')
-        
-//       }
-      
-//     }
-//   return (
-//     <>
-//     <div className='w-full h-20 bg-slate-900 flex text-center items-center'>
-//         <span className='text-white hover:opacity-60 p-2 mx-auto cursor-pointer'>Home</span>
-//         <span className='text-white hover:opacity-60 p-2 mx-auto'>Urls</span>
-//         <span className='flex mx-auto justify-end bg-red-500 text-white px-4 py-2  w-fit cursor-pointer' onClick={handleLogout}>Logout</span>
-//     </div>
-//     <div className='flex min-h-screen justify-center flex-col bg-slate-200'>
-//         <h1 className='text-3xl font-medium text-slate-950 text-center'>Shorten Url Generator</h1>
-//         <p className='text-gray-800 p-2 text-center'>Welcome to URl Generator here we can create a short url that have better impression</p>
-//         <form onSubmit={GenerateLink} className=' text-center m-auto w-fit my-8 align-middle items-center justify-center gap-6 space-y-4'>
-//             <input type='text' value={longUrl} placeholder='Enter long url' onChange={(e)=>setLongUrl(e.target.value)} className="w-full px-8 py-4 bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mt-4 rounded-lg"/>
-//             <button type='submit' className='w-fit h-fit px-4 py-2 rounded-md text-xl text-white bg-blue-600'>Create a new Link</button>
-//         </form>
-//           <span className='flex mx-auto justify-end bg-red-500 text-white px-4 py-2  w-fit' onClick={handleLogout}>Logout</span>
-//         </div>
-//         </>
-//   )
-// }
-
-// export default Home
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/userContext";
@@ -61,7 +10,7 @@ import { BiCopy } from "react-icons/bi";
 
 const Home = () => {
   const [longUrl, setLongUrl] = useState("");
-  const [shortUrls, setShortUrls] = useState<string[]>([]); // Store multiple short URLs
+  const [shortUrls, setShortUrls] = useState<string[]>([]);
   const { setUserAuthenticated } = useAuthContext();
   const navigate = useNavigate();
 
@@ -105,8 +54,8 @@ const Home = () => {
         }
       );
 
-      setShortUrls([...shortUrls, response.data.shortUrl]); // Add new URL to list
-      setLongUrl(""); // Clear input
+      setShortUrls([...shortUrls, response.data.shortUrl]); 
+      setLongUrl(""); 
       toast.success("Short URL created successfully!");
     } catch (err) {
       console.error("Error in creating URL:", err);

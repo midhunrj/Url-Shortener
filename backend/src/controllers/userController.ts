@@ -7,14 +7,14 @@ export class UserController{
     async register (req: Request, res: Response) {
         try {
             const {username,email,password}=req.body
-            console.log(req.body,"dsfds");
+            console.log(req.body,"dsfds")
             
           const user = await userService.register(username,email,password);
-          console.log("return data",user);
+          console.log("return data",user)
           
           if(user)
           {
-          res.status(201).json(user);
+          res.status(201).json(user)
           }
         } catch (err) {
           res.status(400).json({ message: "Error in registering the userdata" });
@@ -27,22 +27,21 @@ export class UserController{
         const userData=await userService.login(email,password)
         
         if (!userData) {
-            res.status(404).json({ error: "Invalid credentials" });
+            res.status(404).json({ error: "Invalid credentials" })
             return
        }
        const{refreshToken}=userData as{refreshToken:string}
                 res.cookie('urlRefreshToken', refreshToken, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production",  // Only send secure cookies in production
+                    secure: process.env.NODE_ENV === "production",
                     sameSite: 'none',
-                    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                    maxAge: 7 * 24 * 60 * 60 * 1000, 
                 });
         res.status(200).json(userData)
      } catch (error) {
         console.log(error,"error in creating product")
     res.status(500).json({message:"Error in fetching login user"})
-    }
-     
+    } 
     }
     async refreshAccessToken(req: Request, res: Response) {
         try {

@@ -21,22 +21,22 @@ declare global {
 async function verifyToken(req: Request, res: Response, next: NextFunction) {
     try {
         // console.log(req.query,"ggs")
-        console.log(req.headers,"jjj");
+        console.log(req.headers,"jjj")
         
-        const token = req.headers?.["authorization"]?.split(' ')[1];
-        console.log("token in middleware",token);
+        const token = req.headers?.["authorization"]?.split(' ')[1]
+        console.log("token in middleware",token)
         
         if (!token) {
             throw new HttpError("No access token found", 403);
         }
 
-        const decodeToken:any = await authconfig.verifyAccessToken(token);
-        console.log(decodeToken,"decodeTOken in middleware");
+        const decodeToken:any = await authconfig.verifyAccessToken(token)
+        console.log(decodeToken,"decodeTOken in middleware")
         
         if (!decodeToken) {
-            console.log("gfdgdff");
+            console.log("gfdgdff")
             
-            throw new HttpError("Token is not valid", 401);
+            throw new HttpError("Token is not valid", 401)
         }
 
         
@@ -49,7 +49,7 @@ async function verifyToken(req: Request, res: Response, next: NextFunction) {
         if (!isUserValid ) {
             console.log("bddhdh");
             
-            throw new HttpError("Not Authorized", 403);
+            throw new HttpError("Not Authorized", 403)
         }
           // req.user=decodeToken
           console.log("sfss");

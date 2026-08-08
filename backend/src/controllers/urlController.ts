@@ -10,7 +10,9 @@ export class UrlController{
             const userId=req.user?.id as string
             const urlData= await urlService.shortenUrl(userId,longUrl)
             res.status(201).json(urlData)
+
         } catch (error) {
+
             console.log(error,"failed to create a short url")
             
         }
@@ -35,7 +37,7 @@ export class UrlController{
         try {
             const userId=req.user?.id
             const{page,limit}=req.query
-            console.log("hhbbjfjs",req.params);
+            console.log("hhbbjfjs",req.params)
             
            const totalUrlData=await urlService.getUrlByUser(userId!,parseInt(page as string),parseInt(limit as string))
            console.log(totalUrlData,"toatla sfs");
